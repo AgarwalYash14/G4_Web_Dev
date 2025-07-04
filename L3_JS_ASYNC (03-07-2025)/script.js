@@ -1,47 +1,67 @@
-// let cart = ['shoes', 'shirt', 'wallets']
+let cart = ['shoes', 'shirt', 'wallets']
 
-// function orderDetail(cart) {
-//     // 1. Total no of products
-//     // 2. Total amount of Products nos*1000
+function orderDetail(cart) {
+    // 1. Total no of products
+    // 2. Total amount of Products nos*1000
 
-//     const noOfProduct = cart.length
-//     const totalAmount = noOfProduct * 1000
-//     return {
-//         noOfProduct: noOfProduct,
-//         totalAmount: totalAmount,
-//     }
-// }
+    const noOfProduct = cart.length
+    const totalAmount = noOfProduct * 1000
+    return {
+        noOfProduct: noOfProduct,
+        totalAmount: totalAmount,
+    }
+}
 
-// function orderSummary(cart) {
-//     // total price and total product
-//     // then generate orderId
-//     let orderDetails = orderDetail(cart)
+function orderSummary(cart) {
+    // total price and total product
+    // then generate orderId
+    let orderDetails = orderDetail(cart)
 
-//     let totalPrice = orderDetails.totalAmount
-//     let totalProducts = orderDetails.noOfProduct
-//     let orderId = Math.floor(Math.random() * 1000000)
+    let totalPrice = orderDetails.totalAmount
+    let totalProducts = orderDetails.noOfProduct
+    let orderId = Math.floor(Math.random() * 1000000)
 
-//     console.log(`Order ID: ${orderId}`)
-//     console.log(`Total Products: ${totalProducts}`)
-//     console.log(`Total Price: Rs ${totalPrice}`)
+    console.log(`Order ID: ${orderId}`)
+    console.log(`Total Products: ${totalProducts}`)
+    console.log(`Total Price: Rs ${totalPrice}`)
 
-//     return {
-//         orderId: orderId,
-//         totalPrice: totalPrice,
-//         totalProducts: totalProducts,
-//     }
-// }
+    return {
+        orderId: orderId,
+        totalPrice: totalPrice,
+        totalProducts: totalProducts,
+    }
+}
 
-// function paymentGateway() {
-//     // orderId, product details and price.. Payment is successfull
+function paymentGateway() {
+    // orderId, product details and price.. Payment is successfull
+    let orderDetails = orderSummary(cart)
 
-//     let orderDetails = orderSummary(cart)
+    console.log(`Processing payment for Order ID: ${orderDetails.orderId}`)
+    console.log(`Payment of Rs ${orderDetails.totalPrice} is successful!`)
 
-// }
+    return {
+        paymentStatus: 'success',
+        orderDetails: orderDetails,
+    }
+}
 
-// function successfullOrder() {
-//     // it will give all the details about the payment product name and everything
-// }
+function successfullOrder() {
+    // it will give all the details about the payment product name and everything
+    let paymentDetails = paymentGateway()
+
+    console.log('=== ORDER CONFIRMATION ===')
+    console.log(`Order ID: ${paymentDetails.orderDetails.orderId}`)
+    console.log(`Products: ${cart.join(', ')}`)
+    console.log(`Total Products: ${paymentDetails.orderDetails.totalProducts}`)
+    console.log(`Total Amount: Rs ${paymentDetails.orderDetails.totalPrice}`)
+    console.log(`Payment Status: ${paymentDetails.paymentStatus}`)
+    console.log('Thank you for your order!')
+
+    return paymentDetails
+}
+
+// Execute the complete order process
+successfullOrder()
 
 // PROTOTYPE ARRAY FILTER
 
@@ -83,30 +103,30 @@
 
 // 0 + 1 + 2 + 3 + 4
 
-const array1 = [0, 1, 2, 3, 4]
+// const array1 = [0, 1, 2, 3, 4]
 
-const initialValue = 0
-const sumWithInitial = array1.reduce(
-    (accumulator, currentValue) => accumulator + currentValue,
-    initialValue
-)
+// const initialValue = 0
+// const sumWithInitial = array1.reduce(
+//     (accumulator, currentValue) => accumulator + currentValue,
+//     initialValue
+// )
 
-console.log(sumWithInitial)
+// console.log(sumWithInitial)
 
-const sumOfAll = array1.reduce(function (acc, curr) {
-    acc = acc + curr
-    return acc
-}, 10)
+// const sumOfAll = array1.reduce(function (acc, curr) {
+//     acc = acc + curr
+//     return acc
+// }, 10)
 
-console.log(sumOfAll)
+// console.log(sumOfAll)
 
-Array.prototype.reducedPrototype = function (callback, initialValue) {
-    let acc = initialValue
-    for (let i = 0; i < this.length; i++) {
-        acc = callback(acc, this[i], i, this)
-    }
-    return acc
-}
+// Array.prototype.reducedPrototype = function (callback, initialValue) {
+//     let acc = initialValue
+//     for (let i = 0; i < this.length; i++) {
+//         acc = callback(acc, this[i], i, this)
+//     }
+//     return acc
+// }
 
-let reducedOutput = array1.reducedPrototype((acc, curr) => acc + curr, 0)
-console.log(reducedOutput)
+// let reducedOutput = array1.reducedPrototype((acc, curr) => acc + curr, 0)
+// console.log(reducedOutput)
