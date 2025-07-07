@@ -137,14 +137,32 @@ async function fetchProducts() {
     try {
         const res = await fetch('https://dummyjson.com/products')
         const data = await res.json()
-        console.log(data)
+
+        const products = data.products.map((product) => ({
+            title: product.title,
+            description: product.description,
+            price: product.price,
+        }))
+
+        console.log(products)
+
+        const productsContainer = document.getElementById('products')
+        let htmlContent = ''
+
+        products.forEach((product) => {
+            htmlContent += `
+                <div>
+                    <h3>${product.title}</h3>
+                    <p>${product.description}</p>
+                    <p>Price: $${product.price}</p>
+                </div>
+            `
+        })
+
+        productsContainer.innerHTML = htmlContent
     } catch (err) {
         console.log('ERROR OCCURED: ', err.message)
     }
 }
 
 fetchProducts()
-
-// fetch data from products
-// Array of Object
-// title, description, price
