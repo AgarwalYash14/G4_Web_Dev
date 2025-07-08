@@ -90,10 +90,6 @@ parent.addEventListener(
     true
 )
 
-child.addEventListener(
-    'click',
-    () => {
-        console.log('CHILD CLICKED')
-    },
-    true
-)
+child.addEventListener('click', () => {
+    console.log('CHILD CLICKED')
+})
