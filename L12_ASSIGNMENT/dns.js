@@ -1,4 +1,3 @@
-// node-dns-demo.js
 const dns = require('dns')
 
 // SECTION 1: DNS LOOKUP (uses system resolver)
