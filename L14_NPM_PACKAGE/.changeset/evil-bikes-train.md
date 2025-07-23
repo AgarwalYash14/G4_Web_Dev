@@ -1,0 +1,5 @@
+---
+"npm-package": patch
+---
+
+demo
