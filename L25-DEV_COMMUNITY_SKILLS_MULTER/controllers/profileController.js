@@ -52,45 +52,34 @@ const createProfile = async (req, res) => {
     })
 }
 
-const updateProfile = async (req, res) => {
-    const {
-        imageUrl,
-        summary,
-        skills,
-        workExperience,
-        linkedinUrl,
-        githubUrl,
-        codingPlatform,
-        resumeUrl,
-    } = req.body
-
+const updateProfileDetails = async (req, res) => {
     try {
-        const updatedProfile = await Profile.findOneAndUpdate(
-            { userId: req.user[0]._id },
-            {
-                imageUrl,
-                summary,
-                skills,
-                workExperience,
-                linkedinUrl,
-                githubUrl,
-                codingPlatform,
-                resumeUrl,
-            },
-            { new: true, runValidators: true }
-        )
+        const { _id } = req.user[0] // userId from logged-in user
 
-        if (!updatedProfile) {
-            return res.status(404).json({ message: 'Profile not found' })
+        // Check if profile exists
+        const existingProfile = await Profile.findOne({ userId: _id })
+        if (!existingProfile) {
+            return res.status(404).json({
+                message: 'Profile not found. Please create one first.',
+            })
         }
 
+        // Update fields (only those provided in req.body)
+        const updatedProfile = await Profile.findOneAndUpdate(
+            { userId: _id },
+            { $set: req.body },
+            { new: true, runValidators: true } // returns updated document & runs schema validators
+        )
+
         return res.status(200).json({
-            message: 'Profile Updated',
+            message: 'Profile updated successfully',
             data: updatedProfile,
         })
-    } catch (error) {
-        return res.status(500).json({ message: error.message })
+    } catch (err) {
+        res.status(500).json({
+            error: err.message,
+        })
     }
 }
 
-module.exports = { getProfile, createProfile, updateProfile }
+module.exports = { getProfile, createProfile, updateProfileDetails }
